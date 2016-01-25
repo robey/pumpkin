@@ -5,7 +5,7 @@ import { readBmp, writeBmp } from "./bmp";
 
 import "source-map-support/register";
 
-const FUZZ = 0.6;
+const FUZZ = 0.5;
 const FUZZ_CLAMP = 0.3;
 
 export function main() {

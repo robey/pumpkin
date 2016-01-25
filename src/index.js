@@ -5,7 +5,8 @@ import { readBmp, writeBmp } from "./bmp";
 
 import "source-map-support/register";
 
-const FUZZ = 0.3;
+const FUZZ = 0.6;
+const FUZZ_CLAMP = 0.3;
 
 export function main() {
   const fb = readBmp("/Users/robey/Desktop/Pepper.bmp");
@@ -17,9 +18,13 @@ export function main() {
   fb.walk((x, y, pixel) => {
     const delta = colorDifference(pixel, YELLOW);
     if (delta <= FUZZ) {
-      const newColor = subtractColor(pixel, YELLOW);
-      const newAlpha = Math.floor(255 * delta);
-      fb.setPixel(x, y, (newColor & 0xffffff) | (newAlpha << 24));
+      if (delta <= FUZZ_CLAMP) {
+        fb.setPixel(x, y, 0);
+      } else {
+        const newColor = subtractColor(pixel, YELLOW);
+        const newAlpha = Math.floor(255 * delta);
+        fb.setPixel(x, y, (newColor & 0xffffff) | (newAlpha << 24));
+      }
       return true;
     }
     return false;

@@ -1,0 +1,30 @@
+{
+  "name": "pumpkin",
+  "version": "1.0.0",
+  "description": "remove yellow from the pepper sticker pack",
+  "author": "Robey Pointer <robeypointer@gmail.com>",
+  "license": "Apache-2.0",
+  "private": true,
+  "main": "lib/",
+  "engines": {
+    "node": ">= 4.2.0"
+  },
+  "dependencies": {
+    "source-map-support": "*"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.0.0",
+    "babel-preset-es2015-node4": "^1.0.0",
+    "eslint": "^1.4.28"
+  },
+  "files": [
+    "lib",
+    "bin"
+  ],
+  "scripts": {
+    "build": "eslint src test/src && babel --source-maps --out-dir lib src",
+    "clean": "rm -rf lib",
+    "distclean": "npm run clean && rm -rf node_modules",
+    "prepublish": "npm run build"
+  }
+}
